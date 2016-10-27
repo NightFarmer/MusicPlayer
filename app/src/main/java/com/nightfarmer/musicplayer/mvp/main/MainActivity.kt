@@ -3,7 +3,6 @@ package com.nightfarmer.musicplayer.mvp.main
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.TextView
 import com.nightfarmer.musicplayer.MusicInfo
 import com.nightfarmer.musicplayer.MusicPlayService
 import com.nightfarmer.musicplayer.R
@@ -39,7 +38,9 @@ class MainActivity : BaseActivity(), MainContract.View {
             2 -> tv_play_pause.text = "播放"
         }
 
-        tv_name.text = "${music?.name}-${music?.singer}".toString()
+        music?.let {
+            tv_name_playing.text = "${it.name}-${it.singer}".toString()
+        }
 
         when (state) {
             -1 -> tv_jindu.text = "加载中.."
@@ -56,7 +57,6 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     fun playMusic(music: MusicInfo) {
         runOnUiThread { setPlayState(music, -1) }
-//        runOnUiThread { tv_jindu.text = "${music.name}-${music.singer} 准备中" }
         presenter?.play(music)
     }
 

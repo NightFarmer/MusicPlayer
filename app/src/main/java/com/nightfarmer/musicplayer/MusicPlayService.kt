@@ -13,6 +13,11 @@ class MusicPlayService : Service() {
     private var mediaPlayer: MediaPlayer? = null
 
     private val binder = MusicPlayBinder()
+        get() {
+            field.currentMusic = currentMusic
+            field.playState = playState
+            return field
+        }
 
     private var currentMusic: MusicInfo? = null
     private var playState = 0//0stop 1playing 2paused -1加载中
@@ -48,8 +53,6 @@ class MusicPlayService : Service() {
 
     override fun onBind(intent: Intent): IBinder? {
         println("onbind...")
-        binder.currentMusic = currentMusic
-        binder.playState = playState
         return binder
     }
 

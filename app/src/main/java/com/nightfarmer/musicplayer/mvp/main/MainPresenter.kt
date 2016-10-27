@@ -5,10 +5,8 @@ import android.os.Handler
 import android.os.Looper
 import android.support.v7.app.AppCompatActivity
 import com.nightfarmer.musicplayer.MusicInfo
-import com.nightfarmer.musicplayer.MusicPlayBinder
 import com.nightfarmer.musicplayer.MusicPlayService
 import com.nightfarmer.musicplayer.MusicServiceConnection
-import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -61,7 +59,7 @@ class MainPresenter(val view: MainContract.View) : MainContract.Presenter {
                 val musicList = arrayListOf<MusicInfo>()
                 for (matchResult in numPattern.findAll(html)) {
 //                    println(matchResult.value)
-                    println(matchResult.groupValues[1] + "__" + matchResult.groupValues[2] + "__" + matchResult.groupValues[3])
+//                    println(matchResult.groupValues[1] + "__" + matchResult.groupValues[2] + "__" + matchResult.groupValues[3])
                     val musicInfo = MusicInfo()
                     musicInfo.url = matchResult.groupValues[1]
                     musicInfo.name = matchResult.groupValues[2]

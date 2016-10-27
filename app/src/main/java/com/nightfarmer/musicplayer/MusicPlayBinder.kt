@@ -14,7 +14,7 @@ public class MusicPlayBinder : Binder() {
 
     fun addListener(callBack: PlayCallBack?) {
         callBack?.let {
-            callBackList.add(callBack)
+            callBackList.add(it)
         }
     }
 
