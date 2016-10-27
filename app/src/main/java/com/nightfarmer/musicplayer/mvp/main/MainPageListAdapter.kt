@@ -1,9 +1,12 @@
-package com.nightfarmer.musicplayer
+package com.nightfarmer.musicplayer.mvp.main
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.nightfarmer.musicplayer.MusicInfo
+import com.nightfarmer.musicplayer.R
+import com.nightfarmer.musicplayer.mvp.main.MainActivity
 import kotlinx.android.synthetic.main.music_list_item.view.*
 import okhttp3.*
 import java.io.IOException
@@ -14,7 +17,7 @@ import java.nio.charset.Charset
  * Created by zhangfan on 2016/10/27 0027.
  */
 class MainPageListAdapter(val mainActivity: MainActivity) : RecyclerView.Adapter<MainPageListAdapter.MusicHolder>() {
-    var musicList = arrayListOf<MusicInfo>()
+    var musicList = listOf<MusicInfo>()
     override fun getItemCount(): Int {
         return musicList.size
     }

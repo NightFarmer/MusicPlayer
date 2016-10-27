@@ -23,13 +23,13 @@ public class MusicPlayBinder : Binder() {
     }
 
     abstract class PlayCallBack {
-        open fun onConnectedToService(binder: MusicPlayBinder) {
+//        open fun onConnectedToService(binder: MusicPlayBinder) {
+//        }
+
+        open fun onProgress() {
         }
 
         open fun onStart(currentMusic: MusicInfo?) {
-        }
-
-        open fun onProgress() {
         }
 
         open fun onStop() {
@@ -38,7 +38,7 @@ public class MusicPlayBinder : Binder() {
         open fun onPause() {
         }
 
-        open fun onStateChange(state: Int) {
+        open fun onStateChange(currentMusic: MusicInfo?, state: Int) {
         }
     }
 

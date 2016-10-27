@@ -15,14 +15,14 @@ class MusicPlayService : Service() {
     private val binder = MusicPlayBinder()
 
     private var currentMusic: MusicInfo? = null
-    private var playState = 0//0stop 1playing 2paused
+    private var playState = 0//0stop 1playing 2paused -1加载中
         set(value) {
             field = value
             when (field) {
                 0 -> {
                     if (binder.isBinderAlive) {
                         for (callBack in binder.callBackList) {
-                            callBack.onStateChange(playState)
+                            callBack.onStateChange(currentMusic, field)
                             callBack.onStop()
                         }
                     }
@@ -30,7 +30,7 @@ class MusicPlayService : Service() {
                 1 -> {
                     if (binder.isBinderAlive) {
                         for (callBack in binder.callBackList) {
-                            callBack.onStateChange(playState)
+                            callBack.onStateChange(currentMusic, field)
                             callBack.onStart(currentMusic)
                         }
                     }
@@ -38,7 +38,7 @@ class MusicPlayService : Service() {
                 2 -> {
                     if (binder.isBinderAlive) {
                         for (callBack in binder.callBackList) {
-                            callBack.onStateChange(playState)
+                            callBack.onStateChange(currentMusic, field)
                             callBack.onPause()
                         }
                     }
@@ -48,6 +48,8 @@ class MusicPlayService : Service() {
 
     override fun onBind(intent: Intent): IBinder? {
         println("onbind...")
+        binder.currentMusic = currentMusic
+        binder.playState = playState
         return binder
     }
 
@@ -87,12 +89,10 @@ class MusicPlayService : Service() {
             val music = intent?.getSerializableExtra("music") as? MusicInfo
             music?.let {
                 try {
+                    currentMusic = it
                     mediaPlayer?.reset()
                     mediaPlayer?.setDataSource(it.playUrl)
                     mediaPlayer?.prepareAsync()
-                    currentMusic = it
-                    binder.currentMusic = currentMusic
-                    binder.playState = playState;
                 } catch(e: Exception) {
                 }
             }
