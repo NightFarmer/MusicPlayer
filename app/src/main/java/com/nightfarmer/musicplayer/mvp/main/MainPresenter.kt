@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.support.v7.app.AppCompatActivity
 import com.nightfarmer.musicplayer.MusicInfo
+import com.nightfarmer.musicplayer.MusicPlayBinder
 import com.nightfarmer.musicplayer.MusicPlayService
 import com.nightfarmer.musicplayer.MusicServiceConnection
 import okhttp3.*
@@ -35,6 +36,17 @@ class MainPresenter(val view: MainContract.View) : MainContract.Presenter {
     private val connection = object : MusicServiceConnection() {
         override fun onStateChange(currentMusic: MusicInfo?, state: Int) {
             view.setPlayState(currentMusic, state)
+        }
+
+        override fun onConnectedToService(binder: MusicPlayBinder) {
+            view.setPlayState(binder.currentMusic, binder.playState)
+            if (binder.duration <= 0) return
+            view.setSeek((binder.currentPosition * 1.0 / binder.duration * 100).toInt())
+        }
+
+        override fun onProgress(current: Int, duration: Int) {
+            if (duration <= 0) return
+            view.setSeek((current * 1.0 / duration * 100).toInt())
         }
     }
 
@@ -74,5 +86,9 @@ class MainPresenter(val view: MainContract.View) : MainContract.Presenter {
                 }
             }
         })
+    }
+
+    override fun setProgress(progress: Int) {
+        MusicPlayService.progress(view.getContext(), progress)
     }
 }

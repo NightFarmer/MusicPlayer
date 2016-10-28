@@ -3,13 +3,18 @@ package com.nightfarmer.musicplayer.mvp.main
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.SeekBar
 import com.nightfarmer.musicplayer.MusicInfo
 import com.nightfarmer.musicplayer.MusicPlayService
 import com.nightfarmer.musicplayer.R
 import com.nightfarmer.musicplayer.mvp.base.BaseActivity
+import com.nightfarmer.musicplayer.mvp.playdetail.PlayDetailActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainContract.View {
+    override fun setSeek(seek: Int) {
+        seekBar.progress = seek
+    }
 
 
     private var mainPageListAdapter: MainPageListAdapter? = null
@@ -29,7 +34,24 @@ class MainActivity : BaseActivity(), MainContract.View {
         tv_play_pause.setOnClickListener {
             presenter?.pause()
         }
+        tv_name_playing.setOnClickListener {
+            startActivity(Intent(this, PlayDetailActivity::class.java))
+        }
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                println("${seekBar?.progress}")
+                presenter?.setProgress(seekBar?.progress ?: 0)
+            }
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            }
+        })
     }
+
 
     override fun setPlayState(music: MusicInfo?, state: Int) {
         when (state) {
@@ -56,7 +78,6 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     fun playMusic(music: MusicInfo) {
-        runOnUiThread { setPlayState(music, -1) }
         presenter?.play(music)
     }
 

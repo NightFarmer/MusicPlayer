@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_play_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".mvp.main.MainActivity">
+    tools:context="com.nightfarmer.musicplayer.mvp.playdetail.PlayDetailActivity">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,17 +18,11 @@
             android:text="xxxxxxx" />
 
         <TextView
-            android:padding="10dp"
-            android:text="asdfasdfasdf"
             android:id="@+id/tv_name_playing"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <SeekBar
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/seekBar"
-            android:layout_weight="1" />
+            android:padding="10dp"
+            android:text="asdfasdfasdf" />
 
         <TextView
             android:id="@+id/tv_play_pause"

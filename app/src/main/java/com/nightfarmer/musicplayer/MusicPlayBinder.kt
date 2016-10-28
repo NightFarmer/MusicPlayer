@@ -11,6 +11,8 @@ public class MusicPlayBinder : Binder() {
 
     var currentMusic: MusicInfo? = null
     var playState: Int = 0
+    var duration = 0
+    var currentPosition = 0
 
     fun addListener(callBack: PlayCallBack?) {
         callBack?.let {
@@ -23,10 +25,10 @@ public class MusicPlayBinder : Binder() {
     }
 
     abstract class PlayCallBack {
-//        open fun onConnectedToService(binder: MusicPlayBinder) {
-//        }
+        open fun onConnectedToService(binder: MusicPlayBinder) {
+        }
 
-        open fun onProgress() {
+        open fun onProgress(current: Int, duration: Int) {
         }
 
         open fun onStart(currentMusic: MusicInfo?) {

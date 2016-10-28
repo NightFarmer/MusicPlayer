@@ -19,8 +19,8 @@ open class MusicServiceConnection : MusicPlayBinder.PlayCallBack(), ServiceConne
         binder = service as? MusicPlayBinder
         binder?.let {
             it.addListener(this)
-//            onConnectedToService(it)
-            onStateChange(it.currentMusic, it.playState)
+            onConnectedToService(it)
+//            onStateChange(it.currentMusic, it.playState)
         }
     }
 

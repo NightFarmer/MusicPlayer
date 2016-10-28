@@ -1,22 +1,18 @@
-package com.nightfarmer.musicplayer.mvp.main
+package com.nightfarmer.musicplayer.mvp.playdetail
 
 import com.nightfarmer.musicplayer.MusicInfo
 import com.nightfarmer.musicplayer.mvp.base.BaseContract
 
 /**
- * Created by zhangfan on 2016/10/27 0027.
+ * Created by zhangfan on 2016/10/28 0028.
  */
-interface MainContract {
-
+interface PlayDetailContract {
     interface View : BaseContract.View {
 
-        fun setSeek(seek: Int)
         fun setPlayState(music: MusicInfo?, state: Int)
-        fun setDataList(dataList: List<MusicInfo>)
     }
 
     interface Presenter : BaseContract.MusicPlayPresenter {
-//        fun stop()
-//        fun next()
+
     }
 }
